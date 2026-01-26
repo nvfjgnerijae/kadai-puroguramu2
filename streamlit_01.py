@@ -1,0 +1,17 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+st.title('Streamlitの基本')
+
+st.write('Streamlitの基本的な機能を試します')
+
+df = pd.DataFrame(data=np.random.randint(0,100,(3,6)),
+                  index=['支店A','支店B','支店C'],
+                  columns=['1月','2月','3月','4月','5月','6月'])
+
+st.header('1. DataFrameの表示')
+st.dataframe(df)
+
+st.header('２．テーブルの表示')
+st.table(df.T)
