@@ -26,6 +26,33 @@ filtered_df = df[df['prod_category'].isin(selected_cat)]
 if selected_season != 'All':
     filtered_df = filtered_df[filtered_df['season'] == selected_season]
 
-# データ件数の表示
-st.write(f"データ件数: {len(filtered_df)} 件")
-st.dataframe(filtered_df)
+# --- タブの作成 ---
+tab_analysis, tab_data, tab_report = st.tabs(["分析", "データ", "レポート"])
+
+# --- タブ1: 分析 ---
+with tab_analysis:
+    st.header("売上分析ダッシュボード")
+    
+    # 重要な指標 (KPI) の計算
+    total_sales = filtered_df['sales'].sum()
+    total_expense = filtered_df['ad_expense'].sum()
+    
+    # 指標の表示 (st.metricを使用)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("総売上", f"{total_sales:,.0f} 万円")
+    with col2:
+        st.metric("総広告費", f"{total_expense:,.0f} 万円")
+        
+    st.divider()
+
+# --- タブ2: データ ---
+with tab_data:
+    st.subheader("使用しているデータ")
+    st.write(f"データ件数: {len(filtered_df)} 件")
+    st.dataframe(filtered_df)
+
+# --- タブ3: レポート ---
+with tab_report:
+    st.subheader("分析レポート")
+    st.write("（ここに分析結果を書きます）")
