@@ -46,6 +46,33 @@ with tab_analysis:
         
     st.divider()
 
+    st.subheader("可視化グラフ")
+    
+    # グラフ1: 広告費と売上の散布図
+    # 散布図で相関を見ます
+    fig_scatter = px.scatter(
+        filtered_df,
+        x='ad_expense',
+        y='sales',
+        color='prod_category',
+        title="1. 広告費と売上の関係"
+    )
+    st.plotly_chart(fig_scatter, use_container_width=True)
+    
+    # グラフ2: 季節ごとの平均売上
+    # 棒グラフで比較します
+    st.subheader("季節ごとの傾向")
+    # 平均値を計算
+    avg_sales = filtered_df.groupby('season', as_index=False)['sales'].mean()
+    
+    fig_bar = px.bar(
+        avg_sales,
+        x='season',
+        y='sales',
+        title="2. 季節ごとの平均売上"
+    )
+    st.plotly_chart(fig_bar, use_container_width=True)
+
 # --- タブ2: データ ---
 with tab_data:
     st.subheader("使用しているデータ")
