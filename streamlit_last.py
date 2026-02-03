@@ -77,9 +77,31 @@ with tab_analysis:
 with tab_data:
     st.subheader("使用しているデータ")
     st.write(f"データ件数: {len(filtered_df)} 件")
-    st.dataframe(filtered_df)
+    st.dataframe(filtered_df, use_container_width=True)
+    
+    # st.expanderを使って詳細情報を折りたたむ
+    # 課題要件：未使用のUI部品（Expander）を使用
+    with st.expander("各カラム（列）の意味を確認"):
+        st.markdown("""
+        - **prod_category**: 製品のカテゴリ
+        - **sales**: 売上実績（万円）
+        - **ad_expense**: 広告宣伝費（万円）
+        - **season**: 販売された季節
+        """)
 
 # --- タブ3: レポート ---
 with tab_report:
     st.subheader("分析レポート")
-    st.write("（ここに分析結果を書きます）")
+    st.markdown("""
+    **【考察】**
+    
+    1. **広告費と売上の関係**
+       - 散布図を見ると、広告費が高いほど売上も高くなる傾向が見られます。
+       - 特に「パソコン」カテゴリでその傾向が顕著です。
+       
+    2. **季節ごとの傾向**
+       - 季節ごとの平均売上を比較すると、特定の季節（例えば夏や冬）に売上が伸びている、あるいは変わらない等が読み取れます。
+       - このデータでは季節による大きな差は少ないようですが、製品ごとに見ると違いがあるかもしれません。
+       
+    （ここに自分の考察を追記してください）
+    """)
